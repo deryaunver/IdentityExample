@@ -3,16 +3,26 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using IdentityExample.Context;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 
 namespace IdentityExample.Controllers
 {
     [Authorize]
     public class PanelController : Controller
     {
-        public IActionResult Index()
+        private readonly UserManager<AppUser> _userManager;
+
+        public PanelController(UserManager<AppUser> userManager)
         {
-            return View();
+            _userManager = userManager;
+        }
+
+        public async Task<IActionResult> Index()
+        {
+            var user = await _userManager.FindByNameAsync(User.Identity.Name);
+            return View(user);
         }
     }
 }

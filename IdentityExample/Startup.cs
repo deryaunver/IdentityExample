@@ -33,6 +33,7 @@ namespace IdentityExample
             services.AddControllersWithViews();
             services.ConfigureApplicationCookie(opt =>
             {
+                opt.LoginPath=new PathString("/Home/Index");
                 opt.Cookie.HttpOnly = true;
                 opt.Cookie.Name = "ExampleCookie";
                 opt.Cookie.SameSite = SameSiteMode.Strict;
