@@ -26,19 +26,22 @@ namespace IdentityExample
                 opt.Password.RequireNonAlphanumeric = false;
                 opt.Password.RequireUppercase = false;
                 opt.Password.RequiredLength = 1;
-                opt.Lockout.DefaultLockoutTimeSpan=TimeSpan.FromMinutes(10);
+                opt.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(10);
                 opt.Lockout.MaxFailedAccessAttempts = 3;
+               // opt.SignIn.RequireConfirmedEmail = true; doðrulama
             }).AddErrorDescriber<CustomIdentityValidator>().AddPasswordValidator<CustomPasswordValidator>().
                 AddEntityFrameworkStores<UdemyContext>();
+
+                
             services.AddControllersWithViews();
             services.ConfigureApplicationCookie(opt =>
             {
-                opt.LoginPath=new PathString("/Home/Index");
+                opt.LoginPath = new PathString("/Home/Index");
                 opt.Cookie.HttpOnly = true;
                 opt.Cookie.Name = "ExampleCookie";
                 opt.Cookie.SameSite = SameSiteMode.Strict;
                 opt.Cookie.SecurePolicy = CookieSecurePolicy.SameAsRequest;
-                opt.ExpireTimeSpan=TimeSpan.FromDays(20);
+                opt.ExpireTimeSpan = TimeSpan.FromDays(20);
             });
         }
 

@@ -40,6 +40,11 @@ namespace IdentityExample.Controllers
                     ModelState.AddModelError("",$"3 başarısız giriş gerçekleştirdiniz.Hesabınız {kalanDakika} dakika boyunca kitlenmiştir.");
                     return View("Index", model);
                 }
+
+                if (identityResult.IsNotAllowed)
+                {
+                    ModelState.AddModelError("","Email Adresininzi doğrulayınız!");
+                }
                 if (identityResult.Succeeded)
                 {
                     return RedirectToAction("Index", "Panel");
