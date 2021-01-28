@@ -1,4 +1,4 @@
-﻿
+﻿@model List<AppUser>
 @{
     ViewData["Title"] = "UserLİst";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -15,6 +15,9 @@
         {
             <tr>
                 <td>@item.Name</td>
+                <td>
+                    <rolgoster user-id="@item.Id"></rolgoster>
+                </td>
                 <td>
                     <a asp-action="AssignRole" asp-route-id="@item.Id" class="btn btn-warning btn-sm">Rol Ata</a>
                     @*<a asp-action="DeleteRole" asp-route-id="@item.Id" class="btn btn-danger btn-sm">Sil</a>*@
