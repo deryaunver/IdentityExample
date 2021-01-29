@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace IdentityExample.Controllers
 {
+    [AutoValidateAntiforgeryToken]
     public class HomeController : Controller
     {
         private readonly UserManager<AppUser> _userManager;
@@ -25,6 +26,7 @@ namespace IdentityExample.Controllers
             return View(new UserSingInViewModel());
         }
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> GirisYap(UserSingInViewModel model)
         {
             if (ModelState.IsValid)
@@ -85,6 +87,10 @@ namespace IdentityExample.Controllers
                 }
             }
             return View(model);
+        }
+        public IActionResult AccessDenied()
+        {
+            return View();
         }
     }
 }

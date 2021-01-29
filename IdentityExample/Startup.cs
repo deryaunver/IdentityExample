@@ -37,11 +37,16 @@ namespace IdentityExample
             services.ConfigureApplicationCookie(opt =>
             {
                 opt.LoginPath = new PathString("/Home/Index");
+                opt.AccessDeniedPath= new PathString("/Home/AccessDenied");
                 opt.Cookie.HttpOnly = true;
                 opt.Cookie.Name = "ExampleCookie";
                 opt.Cookie.SameSite = SameSiteMode.Strict;
                 opt.Cookie.SecurePolicy = CookieSecurePolicy.SameAsRequest;
                 opt.ExpireTimeSpan = TimeSpan.FromDays(20);
+            });
+            services.AddAuthorization(opt =>
+            {
+                opt.AddPolicy("FemalePolicy", cnf => { cnf.RequireClaim("gender", "female"); });
             });
         }
 

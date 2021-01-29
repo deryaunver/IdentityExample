@@ -15,10 +15,11 @@ namespace IdentityExample.Controllers
     public class PanelController : Controller
     {
         private readonly UserManager<AppUser> _userManager;
-
-        public PanelController(UserManager<AppUser> userManager)
+        private readonly SignInManager<AppUser> _signInManager;
+        public PanelController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager)
         {
             _userManager = userManager;
+            _signInManager = signInManager;
         }
 
         public async Task<IActionResult> Index()
@@ -71,6 +72,12 @@ namespace IdentityExample.Controllers
                 ModelState.AddModelError("",error.Description);
             }
             return View(model);
+        }
+
+        public async Task<IActionResult> LogOut()
+        {
+            await _signInManager.SignOutAsync();
+            return RedirectToAction("Index", "Home");
         }
     }
 }
